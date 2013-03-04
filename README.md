@@ -4,6 +4,14 @@
 A recursive descent parser for the [mustache templating
 language](http://mustache.github.com/).
 
+Install with:
+
+`pip install mustache`
+
+or
+
+`easy_install mustache`
+
 ### Why?
 
 I wrote this to improve my Python skills and learn about recursive descent I
