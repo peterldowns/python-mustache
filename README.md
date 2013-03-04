@@ -77,27 +77,34 @@ def index():
 The year is {{year}}!
 ```
 
-
 An important disclaimer: the `pystache` code works really well and is very
 clean and well-written. The people who have worked on it have done a great job, and I've
 learned a lot diving through their code. In fact, I first started this project
 as a fork of `pystache`!
 
+
 ### Documentation
 
-There is still a lot of work to be done documenting the `mustache` API. It's on
-its way!
+Coming soon! Sorry!
 
 
-### Status?
+### Testing
 As of March 2 2013 this library passes every test in the
-[offical mustache spec](https://github.com/mustache/spec/).
+[offical mustache spec](https://github.com/mustache/spec/), which is included as
+a git submodule.
 
-It also passes a couple other tests I've written (although I should write more). Try pulling
-and running `nosetest`. 
+To run the test suite:
+
+* Clone the git repo.
+* From the root, run:
+    * `git submodule init`
+    * `git submodule update`
+    * `nosetests`
 
 
 ### Etc.
-* Only depends on the stdlib, which is pretty cool.
-* Does not support streaming (yet).
+* Only depends on the stdlib.
+* Does not support streaming.
+* No command-line utility.
+* **Written as a learning experience.**
 
