@@ -4,17 +4,11 @@
 A recursive descent parser for the [mustache templating
 language](http://mustache.github.com/).
 
-Install with:
-
-`pip install mustache`
-
-or
-
-`easy_install mustache`
+Install: `pip install mustache` or `easy_install mustache`.
 
 ### Why?
 
-I wrote this to improve my Python skills and learn about recursive descent I
+I wrote this to improve my Python skills and learn about recursive descent. I
 guess it's something that every young programmer needs to do :)
 
 I also wanted to provide a nice way to render templates that didn't require
@@ -27,7 +21,7 @@ Compare the `mustache` way:
 ```python
 from mustache import template
 
-@template('static/templates/index.mustache'
+@template('static/templates/index.mustache')
 def render_index(name):
     return {'name' : name}
 
@@ -74,9 +68,7 @@ app = Bottle()
 @template('templates/index.mustache')
 def index():
     now = time.time()
-    return {
-        'year' : now.tm_year,
-    }
+    return {'year' : now.tm_year}
 ```
 
 `templates/index.mustache`:
@@ -99,7 +91,7 @@ its way!
 
 ### Status?
 As of March 2 2013 this library passes every test in the
-[offical mustache spec](https://github.com/mustache/spec/). So that's pretty cool, I guess.
+[offical mustache spec](https://github.com/mustache/spec/).
 
 It also passes a couple other tests I've written (although I should write more). Try pulling
 and running `nosetest`. 
