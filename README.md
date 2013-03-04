@@ -40,14 +40,14 @@ class Index(object):
         self.name = name
 
 def render_index(name):
-    return Renderer(search_dirs='static/templates')(Index(name))
+    return Renderer(search_dirs='t1').render(Index(name))
 
 class Index2(object):
     def __init__(self, age):
         self.age = age
 
 def render_index2(age):
-    return Renderer(search_dirs='static/other_templates_folder')(Index2(name))
+    return Renderer(search_dirs='t2').render(Index2(age))
 ```
 
 A nice bonus to the API is that it plays well with [`bottle`](bottlepy.org),
