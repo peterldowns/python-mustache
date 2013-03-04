@@ -16,6 +16,7 @@ API](https://github.com/defunkt/pystache#use-it).
 
 Compare the `mustache` way:
 
+```python
     from mustache import template
 
     @template('static/templates/index.mustache'
@@ -25,9 +26,11 @@ Compare the `mustache` way:
     @template('static/other_templates_folder/index2.mustache')
     def render_index2(age):
         return {'age' : age}
+```
 
 with the `pystache` way:
 
+```python
     from pystache import Renderer
 
     class Index(object):
@@ -43,6 +46,7 @@ with the `pystache` way:
 
     def render_index2(age):
         return Renderer(search_dirs='static/other_templates_folder')(Index2(name))
+```
 
 A nice bonus to the API is that it plays well with [`bottle`](bottlepy.org),
 [`flask`](http://flask.pocoo.org/), and other micro web frameworks. For example,
@@ -51,6 +55,7 @@ current year (useful for time travelers):
 
 `wsgi.py`:
 
+```python
     import time
     from bottle import Bottle
     from mustache import template
@@ -58,17 +63,19 @@ current year (useful for time travelers):
     app = Bottle()
 
     @app.get('/')
-    @template('templates/index.html')
+    @template('templates/index.mustache')
     def index():
         now = time.time()
         return {
             'year' : now.tm_year,
         }
+```
 
-`templates/index.html`:
+`templates/index.mustache`:
 
+```mustache
     The year is {{year}}!
-
+```
 
 
 An important disclaimer: the `pystache` code works really well and is very
