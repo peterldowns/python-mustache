@@ -1,5 +1,10 @@
 # coding: utf-8
 
+# XXX: The original author of this file is Chris Jerdonek (https://github.com/cjerdonek).
+# It is included here because python-mustache started out as a fork of Pystache
+# (https://github.com/defunkt/pystache), the library to which this code was
+# contributed. This file will be replaced soon.
+
 """
 Creates a unittest.TestCase for the tests defined in the mustache spec.
 
