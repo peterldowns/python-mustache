@@ -12,7 +12,7 @@ from rendering import (render)
 from loading import (load_file, load_template)
 from utils import (make_unicode, html_escape)
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __all__ = ['render', 'State', 'Context',
            'load_file', 'load_template',
            'make_unicode', 'html_escape',

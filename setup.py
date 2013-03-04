@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name = 'mustache',
     packages = ['mustache'],
-    version = '0.1.0',
+    version = '0.1.1',
     description = 'Mustache templating in Python',
     author = 'Peter Downs',
     author_email = 'peterldowns@gmail.com',
