@@ -17,35 +17,35 @@ API](https://github.com/defunkt/pystache#use-it).
 Compare the `mustache` way:
 
 ```python
-    from mustache import template
+from mustache import template
 
-    @template('static/templates/index.mustache'
-    def render_index(name):
-        return {'name' : name}
+@template('static/templates/index.mustache'
+def render_index(name):
+    return {'name' : name}
 
-    @template('static/other_templates_folder/index2.mustache')
-    def render_index2(age):
-        return {'age' : age}
+@template('static/other_templates_folder/index2.mustache')
+def render_index2(age):
+    return {'age' : age}
 ```
 
 with the `pystache` way:
 
 ```python
-    from pystache import Renderer
+from pystache import Renderer
 
-    class Index(object):
-        def __init__(self, name):
-            self.name = name
+class Index(object):
+    def __init__(self, name):
+        self.name = name
 
-    def render_index(name):
-        return Renderer(search_dirs='static/templates')(Index(name))
+def render_index(name):
+    return Renderer(search_dirs='static/templates')(Index(name))
 
-    class Index2(object):
-        def __init__(self, age):
-            self.age = age
+class Index2(object):
+    def __init__(self, age):
+        self.age = age
 
-    def render_index2(age):
-        return Renderer(search_dirs='static/other_templates_folder')(Index2(name))
+def render_index2(age):
+    return Renderer(search_dirs='static/other_templates_folder')(Index2(name))
 ```
 
 A nice bonus to the API is that it plays well with [`bottle`](bottlepy.org),
@@ -56,25 +56,25 @@ current year (useful for time travelers):
 `wsgi.py`:
 
 ```python
-    import time
-    from bottle import Bottle
-    from mustache import template
+import time
+from bottle import Bottle
+from mustache import template
 
-    app = Bottle()
+app = Bottle()
 
-    @app.get('/')
-    @template('templates/index.mustache')
-    def index():
-        now = time.time()
-        return {
-            'year' : now.tm_year,
-        }
+@app.get('/')
+@template('templates/index.mustache')
+def index():
+    now = time.time()
+    return {
+        'year' : now.tm_year,
+    }
 ```
 
 `templates/index.mustache`:
 
 ```mustache
-    The year is {{year}}!
+The year is {{year}}!
 ```
 
 
