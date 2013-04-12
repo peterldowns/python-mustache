@@ -64,7 +64,7 @@ class TestMustache(unittest.TestCase):
 		context = { 'users': [ {'name': 'Chris'}, {'name': 'Tom'}, {'name': 'PJ'} ] }
 		ret = mustache.render(template, context)
 		self.assertEquals(ret, """<ul><li>Chris</li><li>Tom</li><li>PJ</li></ul>""")
-	
+
 	def test_implicit_iterator(self):
 		template = """<ul>{{#users}}<li>{{.}}</li>{{/users}}</ul>"""
 		context = { 'users': [ 'Chris', 'Tom','PJ' ] }
