@@ -13,15 +13,15 @@ guess it's something that every young programmer needs to do :)
 
 I also wanted to provide a simple API that plays nicely with micro-WSGI
 frameworks  like nice [`bottle`](bottlepy.org) and
-[`flask`](http://flask.pocoo.org/). For example, here's how to use `mustache`
-with `bottle` to show a web page that tells you the current year (useful for
-time travelers):
+[`flask`](http://flask.pocoo.org/). Here's some example for how to use
+`mustache` tos how a web page that tells you the current year (usefulf or time
+travelers).
 
-`wsgi.py`:
+####`bottle_app.py`
 
 ```python
 import time
-from bottle import Bottle
+from bottle import Bottle, run
 from mustache import template
 
 app = Bottle()
@@ -31,9 +31,30 @@ app = Bottle()
 def index():
     now = time.time()
     return {'year' : now.tm_year}
+
+if __name__ == '__main__':
+    run(host='127.0.0.1', port=8080)
 ```
 
-`templates/index.mustache`:
+####`flask_app.py`
+
+```python
+import time
+from flask import Flask
+from mustache import template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    now = time.time()
+    return {'year' : now.tm_year}
+
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=8080)
+```
+
+###`templates/index.mustache`
 
 ```mustache
 The year is {{year}}!
@@ -52,7 +73,7 @@ a git submodule.
 To run the test suite:
 
 * Clone the git repo.
-* From the root, run:
+* From the root of the repository, run:
     * `git submodule init`
     * `git submodule update`
     * `nosetests`
@@ -62,5 +83,6 @@ To run the test suite:
 * Only depends on the stdlib.
 * Does not support streaming.
 * No command-line utility.
-* **Written as a learning experience.**
+* Written as a learning experience.
+* Probably ready for production. It has a test suite, after all!
 
