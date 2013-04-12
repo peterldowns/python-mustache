@@ -2,19 +2,19 @@
 import re
 from os.path import split
 
-from state import (State)
-from context import (Context)
-from loading import (load_template)
-from utils import (make_unicode, html_escape)
+from context import Context
+from loading import load_template
+from state import State
+from utils import make_unicode, html_escape
 
 def get_match_info(template, match, state):
     """
-    Given a template and a regex match within said template,
-    return a dictionary of information about the match to be
-    used to help parse the template.
+    Given a template and a regex match within said template, return a
+    dictionary of information about the match to be used to help parse the
+    template.
     """
     info = match.groupdict()
-    
+
     # Put special delimiter cases in terms of normal ones
     if info['change']:
         info.update({
@@ -36,17 +36,17 @@ def get_match_info(template, match, state):
     end_wsp = info['end_wsp']
 
     begins_line = (tag_start == 0) or (template[tag_start-1] in state.eol_chars)
-    # XXX: maybe should be (tag_end == len(template)-1) ?
-    ends_line = (tag_end == len(template)) or (template[tag_end] in state.eol_chars)
-    interpolating = (tag_type in ['', '&'])
+    ends_line = (tag_end == len(template) or
+                 template[tag_end] in state.eol_chars)
+    interpolating = (tag_type in ('', '&'))
     standalone = (not interpolating) and begins_line and ends_line
-    
+
     if end_wsp:
         tag_end -= len(end_wsp)
     if standalone:
-        # XXX: would this work better?
-        #if tag_end < len(template) and template[tag_end] in state.eol_chars:
-        #    tag_end += 1
+        template_length = len(template)
+        # Standalone tags strip exactly one occurence of '\r', '\n', or '\r\n'
+        # from the end of the line.
         if tag_end < len(template) and template[tag_end] == '\r':
             tag_end += 1
         if tag_end < len(template) and template[tag_end] == '\n':
@@ -54,7 +54,7 @@ def get_match_info(template, match, state):
     elif lead_wsp:
         tag_start += len(lead_wsp)
         lead_wsp = ''
-    
+
     info.update({
         'tag_start' : tag_start,
         'tag_end' : tag_end,
@@ -71,8 +71,8 @@ def get_match_info(template, match, state):
 
 def get_tag_context(name, state):
     """
-    Given a tag name, return its associated value as defined in the
-    current context stack.
+    Given a tag name, return its associated value as defined in the current
+    context stack.
     """
     new_contexts = 0
     ctm = None
@@ -94,8 +94,8 @@ def get_tag_context(name, state):
 
 def section_end_info(template, tag_key, state, index):
     """
-    Given the tag key of an opening section tag, find the corresponding
-    closing tag (if it exists) and return information about that match.
+    Given the tag key of an opening section tag, find the corresponding closing
+    tag (if it exists) and return information about that match.
     """
 
     state.section.push(tag_key)
@@ -107,21 +107,23 @@ def section_end_info(template, tag_key, state, index):
         match = state.tag_re.search(template, search_index)
         if not match:
             raise Exception("Open section %s never closed" % tag_key)
-        
+
         matchinfo = get_match_info(template, match, state)
 
         # If we find a new section tag, add it to the stack and keep going
         if matchinfo['tag_type'] in ('#', '^'):
             state.section.push(matchinfo['tag_key'])
-        # If we find a closing tag for the current section, 'close' it by popping the stack
+        # If we find a closing tag for the current section, 'close' it by
+        # popping the stack
         elif matchinfo['tag_type'] == '/':
             if matchinfo['tag_key'] == state.section():
                 state.section.pop()
             else:
-                raise Exception('Unexpected section end: received %s, expected {{/%s}}' % (
-                    repr(match.group(0)), tag_key))
+                raise Exception(
+                    'Unexpected section end: received %s, expected {{/%s}}' % (
+                        repr(match.group(0)), tag_key))
         search_index = matchinfo['tag_end']
-    
+
     return matchinfo
 
 
@@ -135,11 +137,11 @@ def render(template, context, partials={}, state=None):
         state.context = context
     else:
         state.context = Context(context)
-    
+
     # Add any partials to the state dict
     if partials:
         state.partials.push(partials)
-    
+
     # Render the rendered template
     return __render(make_unicode(template), state)
 
@@ -162,7 +164,7 @@ def __render(template, state, index=0):
     if info['tag_type'] == '!':
         # Comments are removed from output
         repl = ""
-    
+
     # Delimiter change
     elif info['tag_type'] == '=':
         # Delimiters are changed; the tag is rendered as ""
@@ -171,17 +173,17 @@ def __render(template, state, index=0):
         new_tags['otag'], new_tags['ctag'] = map(re.escape, delimiters)
         state.push_tags(new_tags)
         repl = ""
-    
+
     # Plain tag
     elif info['tag_type'] == '':
         repl = __render_tag(info, state)
-    
+
     # Raw tag (should not be escaped)
     elif info['tag_type'] == '&':
         state.escape.push(False)
         repl = __render_tag(info, state)
         state.escape.pop()
-    
+
     # Partial
     elif info['tag_type'] == '>':
         partial_name = info['tag_key']
@@ -203,12 +205,12 @@ def __render(template, state, index=0):
                                                  state.encoding, state.encoding_error)
             except (IOError):
                 pass
-        
+
         if partial_template:
             # Preserve indentation
             if info['standalone']:
                 partial_template = lead_wsp.sub(info['lead_wsp']+r'\1', partial_template)
-            
+
             # Update state
             state.partials.push(state.partials()) # XXX wtf is this shit?
             state.push_tags(state.default_tags)
@@ -239,10 +241,10 @@ def __render(template, state, index=0):
         _continue = ctag_info['tag_end']
 
         template_with_inner = template[:inner_end]
-        
+
         new_contexts, ctm = get_tag_context(otag_info['tag_key'], state)
         truthy = otag_info['tag_type'] == '#'
-        
+
         #if ctm is not None:
         if ctm:
             # If there's a match and it's callable, feed it the inner template
@@ -250,7 +252,7 @@ def __render(template, state, index=0):
                 template_to_inner = template[:inner_start]
                 inner = template[inner_start:inner_end]
                 template_with_inner = template_to_inner + make_unicode(ctm(inner))
-                
+
             # Make the context list an iterable from the ctm
             if not hasattr(ctm, '__iter__') or isinstance(ctm, dict):
                 ctx_list = [ctm]
@@ -259,7 +261,7 @@ def __render(template, state, index=0):
         # If there's no match, there are no new contexts
         else:
             ctx_list = [False]
-        
+
         # If there are new contexts and the section is truthy, or if
         # there are no new contexts and the section is falsy, render
         # the contents
@@ -267,42 +269,44 @@ def __render(template, state, index=0):
         for ctx in ctx_list:
             if (truthy and ctx) or (not truthy and not ctx):
                 state.context.push(ctx)
-                repl_stack.append(__render(template_with_inner, state, inner_start))
+                repl_stack.append(
+                    __render(template_with_inner, state, inner_start))
 
             else:
                 break
-        
+
         repl = ''.join(repl_stack)
         for i in xrange(new_contexts): state.context.pop()
     else:
         raise Exception("found unpaired end of section tag!")
 
-    return _pre + make_unicode(repl) + __render(template, state, _continue)
+    return u''.join((
+        _pre, make_unicode(repl), __render(template, state, _continue)))
 
 def __render_tag(info, state):
-    """ Render an individual tag by making the appropriate replacement
-        within the current context (if any). """
-    new_contexts, ctm = get_tag_context(info['tag_key'], state)
-    repl = ''
+    """ Render an individual tag by making the appropriate replacement within
+    the current context (if any). """
+    new_contexts, context_match = get_tag_context(info['tag_key'], state)
+    replacement = ''
 
-    # XXX if ctm or ctm is not None:
-    if ctm or ctm == 0:
-        repl = ctm
-    elif make_unicode(info['tag_key'], state.encoding) == make_unicode('.', state.encoding):
-        repl = state.context()
+    if context_match or context_match == 0:
+        replacement = context_match
+    elif info['tag_key'] == '.':
+        replacement = state.context()
     else:
-        repl = ''
-    
+        replacement = ''
+
     # Call all callables / methods / lambdas / functions
-    if repl and callable(repl):
-        repl = make_unicode(repl())
-        
+    if replacement and callable(replacement):
+        replacement = make_unicode(replacement())
+
         state.push_tags(state.default_tags)
-        repl = __render(template=repl, state=state)
+        replacement = __render(template=replacement, state=state)
         state.pop_tags()
-    
+
     for i in xrange(new_contexts): state.context.pop()
+
     if state.escape():
-        repl = html_escape(repl)
-    
-    return repl
+        return html_escape(replacement)
+    return replacement
+
