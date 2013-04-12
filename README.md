@@ -17,7 +17,7 @@ frameworks  like nice [`bottle`](bottlepy.org) and
 `mustache` tos how a web page that tells you the current year (usefulf or time
 travelers).
 
-####`bottle_app.py`
+##### `bottle_app.py`
 
 ```python
 import time
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     run(host='127.0.0.1', port=8080)
 ```
 
-####`flask_app.py`
+##### `flask_app.py`
 
 ```python
 import time
