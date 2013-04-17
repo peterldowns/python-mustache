@@ -8,14 +8,13 @@ Install: `pip install mustache` or `easy_install mustache`.
 
 ### Why?
 
-I wrote this to improve my Python skills and learn about recursive descent. I
-guess it's something that every young programmer needs to do :)
+I wrote this to improve my Python skills and learn about recursive descent
+parsing. I guess it's something that every young programmer needs to do :)
 
 I also wanted to provide a simple API that plays nicely with micro-WSGI
 frameworks  like nice [`bottle`](bottlepy.org) and
-[`flask`](http://flask.pocoo.org/). Here's some example for how to use
-`mustache` tos how a web page that tells you the current year (usefulf or time
-travelers).
+[`flask`](http://flask.pocoo.org/). Here's an example of using `mustache` to
+show a web page that tells you the current year (useful for time travelers).
 
 ##### `bottle_app.py`
 
