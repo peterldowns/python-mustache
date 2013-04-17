@@ -1,4 +1,5 @@
 # Mustache templating for Python
+[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
 
 ### What?
 A recursive descent parser for the [mustache templating
@@ -65,9 +66,9 @@ Coming soon! Sorry!
 
 
 ### Testing
-As of March 2 2013 this library passes every test in the
-[offical mustache spec](https://github.com/mustache/spec/), which is included as
-a git submodule.
+
+[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
+The current test sweet is the [official mustache spec](https://github.com/mustache/spec/), which is included as a git submodule.
 
 To run the test suite:
 
