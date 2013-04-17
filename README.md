@@ -67,10 +67,16 @@ Coming soon! Sorry!
 
 ### Testing
 
-[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
-The current test sweet is the [official mustache spec](https://github.com/mustache/spec/), which is included as a git submodule.
+[![Build
+Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
+The current test sweet is the [official mustache
+spec](https://github.com/mustache/spec/), which is included as a git submodule.
 
-To run the test suite:
+The test suite requires `json` (or `simplejson` for Python < 2.5). To install
+this requirement automatically, specify the `test` option when installing.
+
+Install with test support: `pip install mustache[test]` or `easy_install mustache[test]`.
+
 
 * Clone the git repo.
 * From the root of the repository, run:

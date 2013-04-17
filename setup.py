@@ -8,6 +8,10 @@ setup(
     author_email = 'peterldowns@gmail.com',
     url = 'https://github.com/peterldowns/python-mustache',
     download_url = 'https://github.com/peterldowns/python-mustache/tarball/v0.1.2',
+    install_requirements = open('requirements.txt').read(),
+    extras_require = {
+      'test' : open('tests/requirements.txt').read(),
+    }
     keywords = [
         'templating',
         'template',
