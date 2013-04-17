@@ -11,7 +11,7 @@ setup(
     install_requirements = open('requirements.txt').read(),
     extras_require = {
       'test' : open('tests/requirements.txt').read(),
-    }
+    },
     keywords = [
         'templating',
         'template',
