@@ -4,13 +4,13 @@ TODO: add a docstring.
 """
 
 import os.path
-from copy import (copy)
+from copy import copy
 
-from state import (State)
-from context import (Context)
-from rendering import (render)
-from loading import (load_file, load_template)
-from utils import (make_unicode, html_escape)
+from state import State
+from context import Context
+from rendering import render
+from loading import load_file, load_template
+from utils import make_unicode, html_escape
 
 __version__ = '0.1.2'
 __all__ = ['render', 'State', 'Context',
@@ -24,7 +24,7 @@ def template(relative_path, *args, **kwargs):
     """ A decorator for easily rendering templates.
     Use as follows:
 
-    main.py: 
+    main.py:
         from mustache import (template)
 
         @template('../tests/static/say_hello.html')
@@ -35,18 +35,18 @@ def template(relative_path, *args, **kwargs):
 
         if __name__=="__main__":
             print index()
-    
+
     static/say_hello.html:
 
         <h1> Hello, {{name}}! </h1>
 
     from the command line:
-        
+
         > python main.py
         <h1> Hello, world! </h1>
     """
     directory, filename = os.path.split(relative_path)
-    
+
     partials_dir = os.path.abspath(directory)
     name, ext = os.path.splitext(filename)
 
