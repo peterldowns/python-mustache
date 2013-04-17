@@ -46,7 +46,7 @@ def load_file(path, encoding, encoding_errors):
     abs_path = abspath(path)
     if exists(abs_path):
         return read_unicode(abs_path, encoding, encoding_errors)
-    raise IOError("File {0} does not exist".format(abs_path))
+    raise IOError('File %s does not exist' % (abs_path))
 
 def load_template(name, directory, extension, encoding, encoding_errors):
     """ Load a template and return its contents as a unicode string. """
