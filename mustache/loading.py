@@ -9,13 +9,19 @@ DEFAULT_ERRORS = 'xmlcharrefreplace'
 
 def read(path):
     """ Return the contents of a file as a byte string. """
-    with open(path, 'rb') as f:
-        return f.read()
+    try:
+      f = open(path, 'rb')
+      return f.read()
+    finally:
+      f.close()
 
 def read_unicode(path, encoding, encoding_errors):
     """ Return the contents of a file as a unicode string. """
-    with open(path, 'rb') as f:
-        return make_unicode(f.read(), encoding, encoding_errors)
+    try:
+      f = open(path, 'rb')
+      return make_unicode(f.read(), encoding, encoding_errors)
+    finally:
+      f.close()
 
 def get_abs_template_path(template_name, directory, extension):
     """ Given a template name, a directory, and an extension, return the
