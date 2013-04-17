@@ -1,5 +1,5 @@
 # Mustache templating for Python
-[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
+
 
 ### What?
 A recursive descent parser for the [mustache templating
@@ -7,8 +7,8 @@ language](http://mustache.github.com/).
 
 Install: `pip install mustache` or `easy_install mustache`.
 
-### Why?
 
+### Why?
 I wrote this to improve my Python skills and learn about recursive descent
 parsing. I guess it's something that every young programmer needs to do :)
 
@@ -17,8 +17,8 @@ frameworks  like nice [`bottle`](bottlepy.org) and
 [`flask`](http://flask.pocoo.org/). Here's an example of using `mustache` to
 show a web page that tells you the current year (useful for time travelers).
 
-##### `bottle_app.py`
 
+##### `bottle_app.py`
 ```python
 import time
 from bottle import Bottle, run
@@ -36,8 +36,8 @@ if __name__ == '__main__':
     run(host='127.0.0.1', port=8080)
 ```
 
-##### `flask_app.py`
 
+##### `flask_app.py`
 ```python
 import time
 from flask import Flask
@@ -54,30 +54,28 @@ if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080)
 ```
 
-##### `templates/index.mustache`
 
+##### `templates/index.mustache`
 ```mustache
 The year is {{year}}!
 ```
 
-### Documentation
 
+### Documentation
 Coming soon! Sorry!
 
 
-### Testing
+### Testing [![Build Status](https://travis-ci.org/peterldowns/python-mustache.png?branch=master,development)](https://travis-ci.org/peterldowns/python-mustache)
 
-[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
-
-The current test sweet is the [official mustache
+The current test suite is the [official mustache
 spec](https://github.com/mustache/spec/), which is included as a git submodule.
 
-The test suite requires `json` (or `simplejson` for Python < 2.5). To install
-this requirement automatically, specify the `test` option when installing.
+Testing requires `json` (or `simplejson` for Python < 2.5). To install this
+requirement automatically, specify the `test` option when installing like so:
+`pip install mustache[test]` or `easy_install mustache[test]`.
 
-Install with test support: `pip install mustache[test]` or `easy_install mustache[test]`.
 
-
+#### Running the test suite
 * Clone the git repo.
 * From the root of the repository, run:
     * `git submodule init`
