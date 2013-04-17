@@ -40,7 +40,7 @@ class Context(object):
         return self.get(key)
 
     def __repr__(self):
-        return "{}{}".format(self.__class__.__name__, tuple(self.stack))
+        return "{0}{1}".format(self.__class__.__name__, tuple(self.stack))
 
     def __str__(self):
         return str(self.stack)
