@@ -91,3 +91,4 @@ class State(object):
         the current stack of relative partial directories.
         """
         return abspath(join(*self.partials_dir))
+
