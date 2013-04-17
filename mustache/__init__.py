@@ -12,11 +12,15 @@ from rendering import render
 from loading import load_file, load_template
 from utils import make_unicode, html_escape
 
-__version__ = '0.1.3'
-__all__ = ['render', 'State', 'Context',
-           'load_file', 'load_template',
-           'make_unicode', 'html_escape',
-           'template', ]
+__version__ = '0.1.4'
+__all__ = ['Context',
+           'State',
+           'html_escape',
+           'load_file',
+           'load_template',
+           'make_unicode',
+           'render',
+           'template']
 
 template_globals = {}
 
