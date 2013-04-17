@@ -67,8 +67,8 @@ Coming soon! Sorry!
 
 ### Testing
 
-[![Build
-Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
+[![Build Status](https://travis-ci.org/peterldowns/python-mustache.png)](https://travis-ci.org/peterldowns/python-mustache)
+
 The current test sweet is the [official mustache
 spec](https://github.com/mustache/spec/), which is included as a git submodule.
 
