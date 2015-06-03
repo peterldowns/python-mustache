@@ -7,6 +7,9 @@ language](http://mustache.github.com/).
 
 Install: `pip install mustache` or `easy_install mustache`.
 
+But really, you should be using [Pystache](https://github.com/defunkt/pystache).
+**This library is unmaintained.**
+
 
 ### Why?
 I wrote this to improve my Python skills and learn about recursive descent
@@ -46,6 +49,7 @@ from mustache import template
 app = Flask(__name__)
 
 @app.route('/')
+@template('templates/index.mustache')
 def index():
     now = time.time()
     return {'year' : now.tm_year}
@@ -62,7 +66,7 @@ The year is {{year}}!
 
 
 ### Documentation
-Coming soon! Sorry!
+Almost certainly never going to be written. Sorry!
 
 
 ### Testing [![Build Status](https://travis-ci.org/peterldowns/python-mustache.png?branch=master,development)](https://travis-ci.org/peterldowns/python-mustache)
